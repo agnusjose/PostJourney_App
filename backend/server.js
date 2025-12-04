@@ -106,7 +106,50 @@ app.post('/login', async (req, res) => {
     return res.json({ success: false, message: 'Server error occurred.' });
   }
 });
+// Admin Login
+app.post("/admin/login", async (req, res) => {
+  const { secretKey, email, password } = req.body;
+
+  console.log("ADMIN LOGIN ATTEMPT");
+  console.log("Secret key entered:", secretKey);
+  console.log("Email entered:", email);
+
+  // Step 1: Validate secret key
+  if (secretKey !== "POSTJOURNEY2024") {
+    console.log("❌ Wrong secret key");
+    return res.json({ success: false, message: "Invalid Secret Key" });
+  }
+
+  // Step 2: Find admin
+  const admin = await User.findOne({ email, userType: "admin" });
+
+  if (!admin) {
+    console.log("❌ Admin not found in DB");
+    return res.json({ success: false, message: "Admin not found" });
+  }
+
+  console.log("Stored hashed password:", admin.password);
+  console.log("Typed password:", password);
+
+  // Step 3: Compare hashed password
+  const isMatch = await bcrypt.compare(password, admin.password);
+  console.log("Password match result:", isMatch);
+
+  if (!isMatch) {
+    return res.json({ success: false, message: "Wrong password" });
+  }
+
+  // SUCCESS
+  return res.json({ success: true, message: "Admin Login Successful" });
+});
+
+app.get("/admin/test", (req, res) => {
+  res.send("Admin route OK");
+});
+
+
 
 app.listen(5000, () => {
   console.log('Server running on port 5000');
 });
+

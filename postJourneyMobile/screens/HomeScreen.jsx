@@ -1,56 +1,88 @@
-import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
 
 export default function HomeScreen({ route }) {
-  const { userEmail } = route.params || {};
+const { userEmail, isAdmin } = route.params || {};
 
   return (
-    <LinearGradient
-      colors={['#6a11cb', '#2575fc']}
-      style={styles.container}
+    <ImageBackground
+      source={require("C:\\Users\\alene\\postJourneyOk\\postJourneyMobile\\assets\\pjlogo_bg.png")}
+      style={styles.bg}
+      resizeMode="cover"
     >
-      <View style={styles.content}>
-        <Text style={styles.title}>Welcome to</Text>
-        <Text style={styles.highlight}>PostJourney</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        
+        {/* Logo */}
+        <Image
+          source={require("C:\\Users\\alene\\postJourneyOk\\postJourneyMobile\\assets\\postjourney_logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-        {userEmail ? (
-          <Text style={styles.subText}>Logged in as: {userEmail}</Text>
-        ) : (
-          <Text style={styles.subText}>Your wellness journey starts here!</Text>
-        )}
-      </View>
-    </LinearGradient>
+        <Text style={styles.welcome}>Welcome to</Text>
+        <Text style={styles.brand}>PostJourney</Text>
+
+        {isAdmin ? (
+  <Text style={styles.subText}>Admin Logged in: {userEmail}</Text>
+) : userEmail ? (
+  <Text style={styles.subText}>Logged in as: {userEmail}</Text>
+) : (
+  <Text style={styles.subText}>Your wellness journey starts here!</Text>
+)}
+
+
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  bg: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
   },
-  content: {
-    alignItems: 'center',
-    padding: 20,
+
+  container: {
+    flexGrow: 1,
+    alignItems: "center",
+    paddingTop: 80,
+    paddingBottom: 60,
   },
-  title: {
-    fontSize: 28,
-    color: '#fff',
-    fontWeight: '600',
+
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 10,
+  },
+
+  welcome: {
+    fontSize: 26,
+    fontWeight: "600",
+    color: "#000",
     marginBottom: 5,
   },
-  highlight: {
+
+  brand: {
     fontSize: 40,
-    fontWeight: '800',
-    color: '#fff',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    fontWeight: "900",
+    color: "#000",
+    textShadowColor: "rgba(0,0,0,0.2)",
     textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
+    textShadowRadius: 4,
   },
+
   subText: {
     marginTop: 20,
-    fontSize: 16,
-    color: '#f0f0f0',
+    fontSize: 18,
+    color: "#00314f",
+    fontWeight: "500",
   },
 });
