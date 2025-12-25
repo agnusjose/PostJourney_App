@@ -15,9 +15,15 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:8081",
+    origin: [
+      "http://localhost:5173",  // Web app (Vite)
+      "http://localhost:8081",  // Expo web
+      "http://192.168.112.170:5000", // Backend (self-reference)
+      "http://192.168.112.170",  // Mobile app device
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
+    credentials: true,
   })
 );
 app.use(express.json());
@@ -202,7 +208,10 @@ app.delete("/admin/delete/:id", async (req, res) => {
     res.json({ success: false, message: "Failed to delete user" });
   }
 });
-
+import equipmentRoutes from "./routes/equipmentRoutes.js";
+import caregiverRoutes from "./routes/caregiverRoutes.js";
+app.use("/equipment", equipmentRoutes);
+app.use("/caregiver-agencies", caregiverRoutes);
 // Server start
 app.listen(5000, "0.0.0.0", () => {
   console.log("Server running on port 5000 (LAN enabled)");

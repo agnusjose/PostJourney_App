@@ -18,7 +18,7 @@ export default function AdminUsersScreen() {
 const BASE_URL =
   Platform.OS === "web"
     ? "http://localhost:5000"
-    : "http://192.168.112.170:5000";
+    : "http://192.168.146.170:5000";
 
   const fetchUsers = async () => {
     try {

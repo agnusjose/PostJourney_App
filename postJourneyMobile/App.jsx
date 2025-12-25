@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import SplashScreen from './screens/SplashScreen';       // Splash first
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -13,7 +12,7 @@ import ServiceProviderDashboard from "./screens/ServiceProviderDashboard";
 import ExercisesDashboard from './screens/ExercisesDashboard';
 import VideoPlayer from "./screens/VideoPlayer";
 import MedicalVideos from "./screens/MedicalVideos";
-
+// ServiceProviderScreen (simple placeholder) removed from stack to avoid conflicts
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -30,10 +29,11 @@ export default function App() {
         <Stack.Screen name="AdminLoginScreen" component={AdminLoginScreen} />
         <Stack.Screen name="AdminUsersScreen" component={AdminUsersScreen} />
         <Stack.Screen name="PatientDashboard" component={PatientDashboard} />
-        <Stack.Screen name="ServiceProviderDashboard" component={ServiceProviderDashboard} />
+        <Stack.Screen name="ServiceProviderDashboard" component={ServiceProviderDashboard}/>
         <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
         <Stack.Screen name='ExercisesDashboard' component={ExercisesDashboard} />
         <Stack.Screen name="MedicalVideos" component={MedicalVideos} />
+        {/* Removed simple ServiceProviderScreen to avoid routing collisions */}
       </Stack.Navigator>
     </NavigationContainer>
   );
