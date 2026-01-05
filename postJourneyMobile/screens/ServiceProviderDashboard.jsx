@@ -27,7 +27,7 @@ function ServiceProviderDashboard() {
   const fetchStores = async () => {
     try {
       console.log("📡 Fetching equipment stores...");
-      const res = await axios.get("http://192.168.146.170:5000/equipment");
+      const res = await axios.get("http://172.16.237.198:5000/equipment");
       console.log("✅ Equipment stores fetched:", res.data.data);
       setStores(res.data.data || []);
     } catch (error) {
@@ -53,7 +53,7 @@ function ServiceProviderDashboard() {
     }
 
     try {
-      await axios.post(`http://192.168.146.170:5000/equipment/${storeId}/add-equipment`, {
+      await axios.post(`http://172.16.237.198:5000/equipment/${storeId}/add-equipment`, {
         name: newProduct.name,
         price: Number(newProduct.price),
         stock: Number(newProduct.stock),
@@ -82,7 +82,7 @@ function ServiceProviderDashboard() {
   const saveEdit = async () => {
     try {
       await axios.put(
-        `http://192.168.146.170:5000/equipment/${editing.storeId}/update-equipment/${editing.index}`,
+        `http://172.16.237.198:5000/equipment/${editing.storeId}/update-equipment/${editing.index}`,
         {
           name: editProduct.name,
           price: Number(editProduct.price),

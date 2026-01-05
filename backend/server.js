@@ -327,6 +327,8 @@ app.post("/login", async (req, res) => {
   success: true,
   message: "Login successful",
   userType: user.userType,
+  name: user.name,
+  email: user.email,
   profileCompleted: user.profileCompleted,
 });
 

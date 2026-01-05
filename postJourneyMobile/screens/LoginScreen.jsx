@@ -29,29 +29,35 @@ export default function LoginScreen({ navigation }) {
 
     try {
       const response = await axios.post(
-        "http://192.168.146.170:5000/login",
+        "http://172.16.237.198:5000/login",
         { email, password }
       );
+      const data = response.data;
 
+      
       if (response.data.success) {
         const type = response.data.userType;
 
-        if (type === "patient") {
-          navigation.navigate("PatientDashboard", { userEmail: email });
-        } else if (type === "service provider") {
+        const { userType, name, email: userEmail } = data;
 
-            if (!response.data.profileCompleted) {
-            // 🔑 FIRST LOGIN → fill details
-              navigation.replace("ServiceProviderProfileScreen", {
-              userEmail: email,
-            });
-        } else {
-    // ✅ PROFILE ALREADY DONE → go to equipment
-        navigation.replace("ServiceProviderDashboard", {
-        userEmail: email,
+    // ✅ SAFETY CHECK
+    if (!name || !userEmail) {
+      Alert.alert("Error", "User data missing from server response");
+      return;
+    }
+
+    // ✅ NAVIGATION — USE replace (prevents back navigation bugs)
+    if (userType === "patient") {
+      navigation.replace("PatientDashboard", {
+        userName: name,
+        userEmail: userEmail,
       });
-      }
 
+    } else if (userType === "service provider") {
+      navigation.replace("ServiceProviderDashboard", {
+        userName: name,
+        userEmail: userEmail,
+      });
     } else {
           Alert.alert("Error", "Unknown user type");
         }
