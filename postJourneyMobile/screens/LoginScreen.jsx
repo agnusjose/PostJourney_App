@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
 
     try {
       const response = await axios.post(
-        "http://172.16.237.198:5000/login",
+        "http://192.168.137.1:5000/login",
         { email, password }
       );
       const data = response.data;

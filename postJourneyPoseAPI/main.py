@@ -7,6 +7,8 @@ import mediapipe as mp
 import math
 import time
 
+from exercises.neck_mobility import analyze_neck_mobility
+
 app = FastAPI(title="PostJourney Pose API")
 
 # ---------- MediaPipe Pose ----------
@@ -22,9 +24,10 @@ pose = mp_pose.Pose(
 class FramePayload(BaseModel):
     image: str
     exercise: str
+    state: dict | None = None   # 👈 needed for neck mobility
 
 
-# ---------- Session State (SIMPLE, EFFECTIVE) ----------
+# ---------- Session State (LEG RAISE ONLY) ----------
 SESSION = {
     "state": "IDLE",
     "last_angle": None,
@@ -70,20 +73,10 @@ def leg_raise_angle(hip, ankle):
     return abs(math.degrees(math.atan2(dy, dx)))
 
 
-# ---------- Feedback Control ----------
-def allow_feedback():
-    now = time.time()
-    if now - SESSION["last_feedback_time"] > FEEDBACK_COOLDOWN:
-        SESSION["last_feedback_time"] = now
-        return True
-    return False
-
-
-# ---------- Leg Raise Evaluation (STATE MACHINE) ----------
+# ---------- Leg Raise Evaluation ----------
 def evaluate_leg_raise(landmarks):
     HIP, KNEE, ANKLE = 23, 25, 27
 
-    # Visibility gate
     for i in [HIP, KNEE, ANKLE]:
         if landmarks[i]["visibility"] < 0.7:
             SESSION["state"] = "IDLE"
@@ -111,7 +104,6 @@ def evaluate_leg_raise(landmarks):
     last = SESSION["last_angle"]
     SESSION["last_angle"] = angle
 
-    # ---------- State transitions ----------
     if SESSION["state"] == "IDLE":
         SESSION["state"] = "READY"
         return {
@@ -177,6 +169,14 @@ def analyze_pose(payload: FramePayload):
     if image is None:
         raise HTTPException(status_code=400, detail="Invalid image")
 
+    # 👇 NECK MOBILITY (NO POSE MODEL NEEDED)
+    if payload.exercise == "neck_mobility":
+        return analyze_neck_mobility(
+            payload.image,
+            payload.state or {}
+        )
+
+    # 👇 POSE-BASED EXERCISES
     results = pose.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     if not results.pose_landmarks:
         SESSION["state"] = "IDLE"

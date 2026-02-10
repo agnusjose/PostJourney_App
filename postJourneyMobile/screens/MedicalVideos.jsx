@@ -1,3 +1,4 @@
+
 import { Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -13,7 +14,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-const API_BASE = "http://172.16.237.198:5000";
+const API_BASE = "http://192.168.137.1:5000";
 
 export default function MedicalVideos({ navigation }) {
   const [dbVideos, setDbVideos] = useState([]);
