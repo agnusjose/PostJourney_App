@@ -2,7 +2,7 @@ export const EXERCISES = {
 
   MARCHING_IN_PLACE: {
     title: "Marching in Place",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Marching in place.mp4"),
     instructions: [
       "Stand upright holding a support if needed",
       "Lift one knee up toward hip level",
@@ -15,7 +15,7 @@ export const EXERCISES = {
 
   SHOULDER_ROLLS: {
     title: "Shoulder Rolls",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/shoulder rolls.mp4"),
     instructions: [
       "Sit or stand with arms relaxed",
       "Lift shoulders upward toward ears",
@@ -28,7 +28,7 @@ export const EXERCISES = {
 
   THORACIC_EXPANSION_ARM_LIFT: {
     title: "Thoracic Expansion with Arm Lift",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Seated Arm Raise.mp4"),
     instructions: [
       "Sit upright with feet flat on the floor",
       "Inhale deeply while lifting arms overhead",
@@ -41,7 +41,7 @@ export const EXERCISES = {
 
   SEATED_SHOULDER_FLEXION: {
     title: "Seated Shoulder Flexion",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Shoulder Flexion.mp4"),
     instructions: [
       "Sit upright with arms by your side",
       "Lift one arm forward and upward",
@@ -54,7 +54,7 @@ export const EXERCISES = {
 
   SEATED_ELBOW_FLEXION_EXTENSION: {
     title: "Seated Elbow Flexion-Extension",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Seated Elbow Flexion and Extension.mp4"),
     instructions: [
       "Sit with arms relaxed at your sides",
       "Bend your elbow bringing hand toward shoulder",
@@ -67,7 +67,7 @@ export const EXERCISES = {
 
   WEIGHT_SHIFT: {
     title: "Weight Shift",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Weight Shifting.mp4"),
     instructions: [
       "Stand with feet shoulder-width apart",
       "Shift weight slowly to one leg",
@@ -80,7 +80,7 @@ export const EXERCISES = {
 
   SIT_TO_STAND: {
     title: "Sit to Stand",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Sit-to-Stand.mp4"),
     instructions: [
       "Sit on a chair with feet flat on floor",
       "Lean slightly forward",
@@ -93,7 +93,7 @@ export const EXERCISES = {
 
   SEATED_KNEE_EXTENSION: {
     title: "Seated Knee Extension",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/seated-knee-extension.mp4"),
     instructions: [
       "Sit upright on a chair",
       "Straighten one knee fully",
@@ -106,7 +106,7 @@ export const EXERCISES = {
 
   HEEL_SLIDES: {
     title: "Heel Slides",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/heel-slides.mp4"),
     instructions: [
       "Lie on your back with legs straight",
       "Slide one heel toward your buttocks",
@@ -197,7 +197,7 @@ export const EXERCISES = {
 
   QUADRICEPS_SET: {
     title: "Quadriceps Set",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Quadriceps Sets.mp4"),
     instructions: [
       "Lie with leg straight",
       "Tighten thigh muscles",
@@ -223,7 +223,7 @@ export const EXERCISES = {
 
   STANDING_HIP_ABDUCTION: {
     title: "Standing Hip Abduction",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Standing Hip Extension.mp4"),
     instructions: [
       "Stand holding a support",
       "Lift leg sideways away from body",
@@ -249,7 +249,7 @@ export const EXERCISES = {
 
   PENDULUM_EXERCISE: {
     title: "Pendulum Exercise",
-    video: require("../assets/exercise_demos/neck_mobility_demo.mp4"),
+    video: require("../assets/exercise_demos/Shoulder Pendulum Exercise.mp4"),
     instructions: [
       "Lean forward supporting body with one hand",
       "Let affected arm hang freely",

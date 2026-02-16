@@ -40,7 +40,7 @@ export default function NeckMobilityMonitor() {
 
     let stopStream;
 
-    startWebRTCStream("http://172.16.227.152:8001")
+    startWebRTCStream("http://192.168.137.1:8001")
       .then((stop) => {
         stopStream = stop;
         setStreamReady(true);
@@ -60,7 +60,7 @@ export default function NeckMobilityMonitor() {
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch("http://172.16.227.152:8000/pose/analyze", {
+        const res = await fetch("http://192.168.137.1:8000/pose/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

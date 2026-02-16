@@ -21,14 +21,13 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.postJourneyMobile"
+      "package": "com.postjourney.postJourneyMobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "updates": {
-      "enabled": false
-    }
-
+    "plugins": [
+      "expo-web-browser"
+    ]
   }
 }

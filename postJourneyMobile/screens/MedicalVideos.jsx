@@ -1,5 +1,3 @@
-
-import { Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -14,7 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-const API_BASE = "http://192.168.137.1:5000";
+const API_BASE = "http://192.168.137.1.72:5000";
 
 export default function MedicalVideos({ navigation }) {
   const [dbVideos, setDbVideos] = useState([]);
@@ -73,9 +71,7 @@ export default function MedicalVideos({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {loading && (
-          <ActivityIndicator size="large" style={{ marginTop: 20 }} />
-        )}
+        {loading && <ActivityIndicator size="large" style={{ marginTop: 20 }} />}
 
         {/* DB VIDEOS */}
         {!showingYouTube &&
@@ -83,17 +79,9 @@ export default function MedicalVideos({ navigation }) {
             <TouchableOpacity
               key={video._id}
               style={styles.card}
-              onPress={() => {
-  if (Platform.OS === "web") {
-    window.open(video.url, "_blank");
-  } else {
-    navigation.navigate("VideoPlayer", {
-      type: "direct",
-      url: video.url,
-    });
-  }
-}}
-
+              onPress={() =>
+                navigation.navigate("VideoPlayer", { url: video.url })
+              }
             >
               <Image source={{ uri: video.thumbnail }} style={styles.thumb} />
               <Text style={styles.cardTitle}>{video.title}</Text>
@@ -109,22 +97,11 @@ export default function MedicalVideos({ navigation }) {
             <TouchableOpacity
               key={video.videoId}
               style={styles.card}
-              onPress={() => {
-                // 🌐 WEB: open YouTube externally
-                if (Platform.OS === "web") {
-                  window.open(
-                    `https://www.youtube.com/watch?v=${video.videoId}`,
-                    "_blank"
-                  );
-                }
-                // 📱 MOBILE: embedded player
-                else {
-                  navigation.navigate("VideoPlayer", {
-                    type: "youtube",
-                    videoId: video.videoId,
-                  });
-                }
-              }}
+              onPress={() =>
+                navigation.navigate("VideoPlayer", {
+                  url: `https://www.youtube.com/watch?v=${video.videoId}`,
+                })
+              }
             >
               <Image source={{ uri: video.thumbnail }} style={styles.thumb} />
               <Text style={styles.cardTitle}>{video.title}</Text>

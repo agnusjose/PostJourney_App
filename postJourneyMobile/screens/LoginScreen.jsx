@@ -11,13 +11,16 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext"; // Import useAuth
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth(); // Get login function from AuthContext
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -30,42 +33,111 @@ export default function LoginScreen({ navigation }) {
     try {
       const response = await axios.post(
         "http://192.168.137.1:5000/login",
-        { email, password }
+        { email: email.toLowerCase().trim(), password }
       );
+
       const data = response.data;
+      console.log("Full login response:", data);
 
-      
-      if (response.data.success) {
-        const type = response.data.userType;
+      if (data.success) {
+        // ✅ Get ALL data from response
+        const {
+          userType,
+          name,
+          email: userEmail,
+          userId,
+          profileCompleted
+        } = data;
 
-        const { userType, name, email: userEmail } = data;
+        console.log("Received data:", {
+          userType,
+          name,
+          userEmail,
+          userId,
+          profileCompleted
+        });
 
-    // ✅ SAFETY CHECK
-    if (!name || !userEmail) {
-      Alert.alert("Error", "User data missing from server response");
-      return;
-    }
+        // ✅ SAVE USER DATA TO AUTHCONTEXT
+        login({
+          userId: userId,
+          name: name,
+          email: userEmail,
+          userType: userType,
+          serviceType: data.serviceType || "",
+          profileCompleted: profileCompleted || false
+        });
 
-    // ✅ NAVIGATION — USE replace (prevents back navigation bugs)
-    if (userType === "patient") {
-      navigation.replace("PatientDashboard", {
-        userName: name,
-        userEmail: userEmail,
-      });
+        console.log("✅ User data saved to AuthContext");
 
-    } else if (userType === "service provider") {
-      navigation.replace("ServiceProviderDashboard", {
-        userName: name,
-        userEmail: userEmail,
-      });
-    } else {
-          Alert.alert("Error", "Unknown user type");
+        // ✅ Check if profile is completed
+        if (!profileCompleted) {
+          Alert.alert(
+            "Profile Incomplete",
+            "Please complete your profile first.",
+            [
+              {
+                text: "Complete Profile",
+                onPress: () => {
+                  if (userType === "patient") {
+                    navigation.navigate("PatientProfileCompletion", {
+                      email: userEmail
+                    });
+                  } else {
+                    navigation.navigate("ServiceProviderProfileCompletion", {
+                      email: userEmail
+                    });
+                  }
+                }
+              }
+            ]
+          );
+          setLoading(false);
+          return;
+        }
+
+        // ✅ NAVIGATION based on user type
+        console.log("Navigating to dashboard for:", userType);
+
+        if (userType === "patient") {
+          navigation.navigate("PatientDashboard", {
+            userId: userId || userEmail,
+            userName: name,
+            userEmail: userEmail,
+          });
+
+        } else if (userType === "service-provider" || userType === "service provider") {
+          // Check serviceType to route to the correct dashboard
+          if (data.serviceType === "caregiver") {
+            navigation.navigate("CaregiverDashboard", {
+              userId: userId || userEmail,
+              userName: name,
+              userEmail: userEmail,
+            });
+          } else {
+            navigation.navigate("ServiceProviderDashboard", {
+              userId: userId || userEmail,
+              userName: name,
+              userEmail: userEmail,
+            });
+          }
+
+        } else {
+          Alert.alert("Error", "Unknown user type: " + userType);
         }
       } else {
-        Alert.alert("Login Failed", response.data.message || "Invalid login");
+        Alert.alert("Login Failed", data.message || "Invalid login");
       }
     } catch (err) {
-      Alert.alert("Error", "Something went wrong. Try again.");
+      console.error("Login error details:", {
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status
+      });
+
+      Alert.alert(
+        "Error",
+        err.response?.data?.message || err.message || "Something went wrong. Try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -110,21 +182,30 @@ export default function LoginScreen({ navigation }) {
           />
 
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button, loading && styles.buttonDisabled]}
             onPress={handleLogin}
             disabled={loading}
           >
-            <Text style={styles.buttonText}>
-              {loading ? "Logging in…" : "LOGIN"}
-            </Text>
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>LOGIN</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate("RegisterScreen")}
           >
             <Text style={styles.registerText}>
-              Don&apos;t have an account? Register
+              Don't have an account? Register
             </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AdminLoginScreen")}
+            style={styles.adminLink}
+          >
+            <Text style={styles.adminText}>Admin Login</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -174,6 +255,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     elevation: 2,
   },
+  buttonDisabled: {
+    backgroundColor: "#94a3b8",
+  },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
@@ -184,5 +268,13 @@ const styles = StyleSheet.create({
     color: "#0038a8",
     textDecorationLine: "underline",
     fontSize: 15,
+  },
+  adminLink: {
+    marginTop: 10,
+  },
+  adminText: {
+    color: "#666",
+    fontSize: 14,
+    textDecorationLine: "underline",
   },
 });
