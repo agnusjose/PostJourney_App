@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-const API_BASE = "http://192.168.137.1.72:5000";
+const API_BASE = "http://172.16.230.150.72:5000";
 
 export default function MedicalVideos({ navigation }) {
   const [dbVideos, setDbVideos] = useState([]);

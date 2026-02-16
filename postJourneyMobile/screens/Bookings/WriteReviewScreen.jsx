@@ -25,7 +25,7 @@ export default function WriteReviewScreen({ navigation, route }) {
     const [comment, setComment] = useState("");
     const [submitting, setSubmitting] = useState(false);
 
-    const BASE_URL = "http://192.168.137.1:5000";
+    const BASE_URL = "http://172.16.230.150:5000";
 
     const handleSubmit = async () => {
         if (rating === 0) {

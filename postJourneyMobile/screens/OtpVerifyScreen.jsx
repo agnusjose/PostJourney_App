@@ -20,7 +20,7 @@ export default function OtpVerifyScreen({ route, navigation }) {
   const [loading, setLoading] = useState(false);
   const [debugInfo, setDebugInfo] = useState("");
 
-  const BASE_URL = "http://192.168.137.1:5000";
+  const BASE_URL = "http://172.16.230.150:5000";
 
   useEffect(() => {
     console.log("OTP Screen loaded with params:", { email, userType });

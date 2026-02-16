@@ -87,7 +87,7 @@ export default function RegisterScreen({ navigation }) {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://192.168.137.1:5000/auth/google", {
+      const response = await axios.post("http://172.16.230.150:5000/auth/google", {
         name: googleUser.name,
         email: googleUser.email,
         googleId: googleUser.googleId,
@@ -142,7 +142,7 @@ export default function RegisterScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://192.168.137.1:5000/register", {
+      const response = await axios.post("http://172.16.230.150:5000/register", {
         name,
         email,
         password,

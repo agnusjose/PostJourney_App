@@ -20,7 +20,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function EditEquipment({ route, navigation }) {
   const { equipment } = route.params;
-  const BASE_URL = "http://192.168.137.1:5000";
+  const BASE_URL = "http://172.16.230.150:5000";
 
   const [form, setForm] = useState({
     equipmentName: equipment.equipmentName || "",

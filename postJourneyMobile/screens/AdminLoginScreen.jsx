@@ -10,9 +10,9 @@ export default function AdminLoginScreen({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   // Choose correct base URL for your environment:
   // Android emulator -> "http://10.0.2.2:5000"
-  // Real device (same WiFi) -> "http://192.168.137.1:5000"
+  // Real device (same WiFi) -> "http://172.16.230.150:5000"
   // iOS simulator -> "http://localhost:5000"
-  const BASE_URL = "http://192.168.137.1:5000";
+  const BASE_URL = "http://172.16.230.150:5000";
 
   const handleAdminLogin = async () => {
     console.log("ADMIN LOGIN CLICKED");

@@ -14,7 +14,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
-const BASE_URL = "http://192.168.137.1:5000";
+const BASE_URL = "http://172.16.230.150:5000";
 
 export default function CaregiverEditProfile({ route, navigation }) {
     const { userId, email } = route.params;

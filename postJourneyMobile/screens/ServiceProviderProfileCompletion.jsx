@@ -37,7 +37,7 @@ export default function ServiceProviderProfileCompletion({ route, navigation }) 
 
     try {
       const response = await axios.post(
-        "http://192.168.137.1:5000/api/service-provider/complete-profile",
+        "http://172.16.230.150:5000/api/service-provider/complete-profile",
         {
           email,
           agencyName: formData.agencyName,

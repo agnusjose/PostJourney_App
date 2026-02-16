@@ -18,7 +18,7 @@ export default function OrderDetailsScreen({ navigation, route }) {
     const [booking, setBooking] = useState(initialBooking);
     const [loading, setLoading] = useState(false);
 
-    const BASE_URL = "http://192.168.137.1:5000";
+    const BASE_URL = "http://172.16.230.150:5000";
 
     // Refresh booking data when screen is focused (e.g., after submitting a review)
     useFocusEffect(

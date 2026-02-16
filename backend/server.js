@@ -29,7 +29,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:8081",
-    "http://192.168.137.1:5000",
+    "http://172.16.230.150:5000",
     "http://192.168.112.170",
     "http://192.168.8.135:5000",
     "http://localhost:19006"

@@ -62,7 +62,7 @@ export default function CheckoutScreen({ route, navigation }) {
   const [loading, setLoading] = useState(false);
   const [validatingStock, setValidatingStock] = useState(false);
 
-  const BASE_URL = "http://192.168.137.1:5000";
+  const BASE_URL = "http://172.16.230.150:5000";
 
   // Calculate total amount - USING FIXED FUNCTION
   const totalAmount = calculateTotalAmount();
